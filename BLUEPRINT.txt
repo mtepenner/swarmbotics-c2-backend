@@ -1,0 +1,43 @@
+swarmbotics_c2_backend/
+├── api_gateway/                        # Bridges the tactical network with operator interfaces
+│   ├── proto/                          # gRPC Protobuf definitions for ultra-fast communication
+│   │   ├── swarm_control.proto
+│   │   └── telemetry_stream.proto
+│   ├── rest_endpoints/                 # REST APIs for web dashboards and legacy systems
+│   │   ├── mission_routes.go
+│   │   └── node_status.go
+│   └── auth_service/                   # Operator authentication and authorization
+│       ├── mtls_validator.go           # Mutual TLS for zero-trust tactical network access
+│       └── jwt_manager.go              # Token management for ATAK and Web interfaces
+│
+├── global_swarm_planner/               # The "Hive Mind" logic and distributed algorithms
+│   ├── task_allocation/                # Assigns missions based on UGV health, payload, and range
+│   │   ├── dynamic_auctioneer.py       # Uses auction-based algorithms for distributed tasking
+│   │   └── role_assigner.py            # Dynamically assigns ISR or kinetic roles based on the tactical situation
+│   ├── collaborative_routing/          # Plots synchronized multi-agent paths
+│   │   ├── waypoint_generator.cpp      # High-performance route calculations
+│   │   └── conflict_resolution.cpp     # Ensures hundreds of UGVs don't bottleneck or collide
+│   └── behavior_orchestrator/          # Manages the "multiple dilemmas" tactical behaviors
+│       ├── flanking_maneuvers.py       # Coordinated multi-axis approach logic
+│       └── swarm_saturation.py         # Logic to overwhelm adversary defenses simultaneously
+│
+├── telemetry_pipeline/                 # High-throughput data ingestion and state management
+│   ├── ingestion_gateways/             # Entry points for data coming from the Connectivity Layer
+│   │   ├── mqtt_broker_config.yaml     # Lightweight pub/sub for individual UGV health pings
+│   │   └── kafka_producer.go           # High-throughput ingestion for swarm-wide telemetry
+│   ├── stream_processors/              # Real-time data transformation and alerting
+│   │   ├── health_monitor.go           # Flags UGVs with low battery or damaged tracks
+│   │   └── payload_aggregator.go       # Combines individual ISR feeds into a unified map state
+│   └── state_storage/                  # Where the Hive Mind stores its memory
+│       ├── redis_live_state.conf       # In-memory store for instant UGV location lookups (<5ms)
+│       └── timescaledb_metrics.sql     # Time-series database for mission playback and post-action review
+│
+└── infrastructure/                     # Deployment and scaling configuration
+    ├── k8s_manifests/                  # Kubernetes deployment files for the C2 microservices
+    │   ├── api_gateway_deploy.yaml
+    │   └── swarm_planner_statefulset.yaml
+    └── failover/                       # Disaster recovery and distributed redundancy
+        └── regional_sync.py            # Syncs the state between distributed tactical edge servers
+
+
+
