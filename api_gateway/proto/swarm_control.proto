@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package swarmbotics.c2.v1;
+
+option go_package = "github.com/mtepenner/swarmbotics-c2-backend/api_gateway/proto/c2v1;c2v1";
+
+message Waypoint {
+  string vehicle_id = 1;
+  double latitude = 2;
+  double longitude = 3;
+  double altitude_m = 4;
+  int32 sequence = 5;
+}
+
+message SwarmCommand {
+  string mission_id = 1;
+  string objective = 2;
+  repeated string vehicle_ids = 3;
+  repeated Waypoint waypoints = 4;
+  string issued_at = 5;
+}
+
+message MissionRequest {
+  string mission_id = 1;
+}
+
+message SwarmCommandAck {
+  string mission_id = 1;
+  bool accepted = 2;
+  string status = 3;
+}
+
+message MissionSnapshot {
+  string mission_id = 1;
+  string planner_epoch = 2;
+  repeated string active_roles = 3;
+}
+
+service SwarmControl {
+  rpc AssignMission(SwarmCommand) returns (SwarmCommandAck);
+  rpc GetMissionSnapshot(MissionRequest) returns (MissionSnapshot);
+}

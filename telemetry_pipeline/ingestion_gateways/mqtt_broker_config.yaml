@@ -1,0 +1,14 @@
+listener:
+  protocol: mqtt
+  port: 1883
+  max_inflight_messages: 1024
+  persistence: false
+
+topics:
+  health: swarm/health/+
+  payload: swarm/payload/+
+  routing: swarm/routes/+
+
+auth:
+  require_client_cert: true
+  jwt_audience: swarmbotics-c2
