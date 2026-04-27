@@ -1,7 +1,7 @@
 # The Command & Control (C2) Backend
 
 ## Description
-`swarmbotics_c2_backend` serves as the "Hive Mind" for massive-scale robotic swarm operations. It provides a highly scalable Command and Control (C2) architecture designed to handle distributed task allocation, collaborative routing, and high-throughput telemetry ingestion. Built for tactical edge networks, it ensures zero-trust security and seamless failover across distributed environments.
+`swarmbotics-c2-backend` serves as the "Hive Mind" for massive-scale robotic swarm operations. It provides a highly scalable Command and Control (C2) architecture designed to handle distributed task allocation, collaborative routing, and high-throughput telemetry ingestion. Built for tactical edge networks, it ensures zero-trust security and seamless failover across distributed environments.
 
 ## Table of Contents
 - [Features](#-features)
@@ -30,13 +30,13 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/mtepenner/swarmbotics_c2_backend.git
-   cd swarmbotics_c2_backend
+   git clone https://github.com/mtepenner/swarmbotics-c2-backend.git
+   cd swarmbotics-c2-backend
    ```
 2. Provision your cluster infrastructure (ensure Redis, Kafka, and TimescaleDB are running).
 3. Apply the Kubernetes manifests to deploy the C2 microservices:
    ```bash
-   kubectl apply -f infrastructure/k8s_manifests/
+   kubectl apply -f infrastructure/k8s-manifests/
    ```
 
 ## 💻 Usage
@@ -58,7 +58,7 @@ kubectl logs -l app=telemetry-pipeline --tail=100 -f
 ### Regional Failover
 In the event of a C2 node failure, trigger the state sync script to push the latest Redis states to a backup edge server:
 ```bash
-python3 infrastructure/failover/regional_sync.py --target edge-node-b
+python3 infrastructure/failover/regional-sync.py --target edge-node-b
 ```
 
 ## 🤝 Contributing
